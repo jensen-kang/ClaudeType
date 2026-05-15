@@ -195,218 +195,25 @@ export default function App() {
   const [downloading, setDownloading] = useState(false);
   const resultRef = useRef(null);
 
-  // PNG 다운로드 — Canvas에 직접 그리기 (외부 의존성 0, 모든 환경에서 작동)
+  // PNG 다운로드 — 결과 페이지 전체를 그대로 캡처
   const handleDownload = async () => {
-    if (!type) return;
+    if (!type || !resultRef.current) return;
     setDownloading(true);
 
     try {
-      // 1080x1920 세로 카드 (인스타 스토리/공유 최적)
-      const W = 1080;
-      const H = 1920;
-      const scale = 1;
+      const { default: html2canvas } = await import('html2canvas-pro');
 
-      const canvas = document.createElement('canvas');
-      canvas.width = W * scale;
-      canvas.height = H * scale;
-      const ctx = canvas.getContext('2d');
-      ctx.scale(scale, scale);
-
-      // === 배경 ===
-      ctx.fillStyle = '#0a0a0f';
-      ctx.fillRect(0, 0, W, H);
-
-      // 배경 그라데이션 글로우 (상단)
-      const bgGrad = ctx.createRadialGradient(W/2, 0, 0, W/2, 0, W);
-      bgGrad.addColorStop(0, 'rgba(167,139,250,0.15)');
-      bgGrad.addColorStop(1, 'rgba(10,10,15,0)');
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, W, H);
-
-      // === 헤더 라벨 ===
-      ctx.fillStyle = '#71717a';
-      ctx.font = '600 22px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.letterSpacing = '6px';
-      ctx.fillText('CLAUDE LITERACY · SELF DIAGNOSIS', W/2, 120);
-
-      // === 메인 점수 (그라데이션) ===
-      const scoreGrad = ctx.createLinearGradient(0, 200, W, 350);
-      scoreGrad.addColorStop(0, '#a78bfa');
-      scoreGrad.addColorStop(0.5, '#f472b6');
-      scoreGrad.addColorStop(1, '#fbbf24');
-
-      ctx.fillStyle = scoreGrad;
-      ctx.font = 'bold 200px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(`${totalScore}`, W/2 - 40, 360);
-
-      ctx.fillStyle = '#52525b';
-      ctx.font = '400 60px sans-serif';
-      ctx.fillText('/ 48', W/2 + 130, 360);
-
-      // === 레벨 태그 ===
-      ctx.fillStyle = '#71717a';
-      ctx.font = '600 24px monospace';
-      const tagText = `LV.${level.num}  ·  ${level.tag}`;
-      ctx.fillText(tagText, W/2, 430);
-
-      // === 레벨 이름 ===
-      ctx.fillStyle = level.color;
-      ctx.font = 'bold 80px sans-serif';
-      ctx.fillText(level.name, W/2, 530);
-
-      // === 레벨 설명 ===
-      ctx.fillStyle = '#a1a1aa';
-      ctx.font = '400 28px sans-serif';
-      wrapText(ctx, level.desc, W/2, 595, W - 200, 42);
-
-      // === 구분선 ===
-      ctx.strokeStyle = '#27272a';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(80, 770);
-      ctx.lineTo(W - 80, 770);
-      ctx.stroke();
-
-      // === TYPE 카드 영역 ===
-      // 카드 배경
-      ctx.fillStyle = '#0f0f15';
-      roundRect(ctx, 80, 820, W - 160, 580, 24);
-      ctx.fill();
-
-      // 카드 테두리 (그라데이션)
-      ctx.strokeStyle = 'rgba(167,139,250,0.3)';
-      ctx.lineWidth = 2;
-      roundRect(ctx, 80, 820, W - 160, 580, 24);
-      ctx.stroke();
-
-      // YOUR TYPE 라벨
-      ctx.fillStyle = '#71717a';
-      ctx.font = '600 20px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('YOUR TYPE', W/2, 880);
-
-      // 유형 코드 (큰 모노스페이스)
-      const codeGrad = ctx.createLinearGradient(0, 900, W, 1020);
-      codeGrad.addColorStop(0, '#a78bfa');
-      codeGrad.addColorStop(0.5, '#f472b6');
-      codeGrad.addColorStop(1, '#fbbf24');
-      ctx.fillStyle = codeGrad;
-      ctx.font = 'bold 160px monospace';
-      ctx.fillText(type.code, W/2, 1020);
-
-      // 이모지
-      ctx.fillStyle = '#fff';
-      ctx.font = '80px sans-serif';
-      ctx.fillText(type.emoji, W/2, 1110);
-
-      // 유형 별명
-      ctx.fillStyle = '#f4f4f5';
-      ctx.font = 'bold 56px sans-serif';
-      ctx.fillText(type.name, W/2, 1190);
-
-      // 유형 설명
-      ctx.fillStyle = '#a1a1aa';
-      ctx.font = '400 26px sans-serif';
-      wrapText(ctx, type.desc, W/2, 1260, W - 240, 38);
-
-      // === Part 점수 3개 ===
-      const parts = [
-        { name: '기본 활용', score: part1Score, isWeak: weakestPart.num === 1 },
-        { name: '맡기는 깊이', score: part2Score, isWeak: weakestPart.num === 2 },
-        { name: '시스템 사고', score: part3Score, isWeak: weakestPart.num === 3 },
-      ];
-
-      ctx.fillStyle = '#71717a';
-      ctx.font = '600 20px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('SCORE BREAKDOWN', W/2, 1500);
-
-      const partW = 280;
-      const partH = 200;
-      const partGap = 30;
-      const totalPartsW = partW * 3 + partGap * 2;
-      const partStartX = (W - totalPartsW) / 2;
-
-      parts.forEach((p, i) => {
-        const x = partStartX + i * (partW + partGap);
-        const y = 1540;
-
-        // 카드 배경
-        ctx.fillStyle = p.isWeak ? 'rgba(251,146,60,0.08)' : '#18181b';
-        roundRect(ctx, x, y, partW, partH, 16);
-        ctx.fill();
-
-        // 테두리
-        ctx.strokeStyle = p.isWeak ? 'rgba(251,146,60,0.4)' : '#27272a';
-        ctx.lineWidth = 1.5;
-        roundRect(ctx, x, y, partW, partH, 16);
-        ctx.stroke();
-
-        // Part 이름
-        ctx.fillStyle = '#a1a1aa';
-        ctx.font = '600 22px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(p.name, x + partW/2, y + 50);
-
-        // 점수
-        ctx.fillStyle = p.isWeak ? '#fb923c' : '#fafafa';
-        ctx.font = 'bold 64px monospace';
-        ctx.fillText(`${p.score}`, x + partW/2 - 30, y + 130);
-
-        ctx.fillStyle = '#52525b';
-        ctx.font = '400 22px sans-serif';
-        ctx.fillText('/16', x + partW/2 + 50, y + 130);
-
-        // 프로그레스 바
-        const barW = partW - 60;
-        const barX = x + 30;
-        const barY = y + 160;
-        ctx.fillStyle = '#27272a';
-        roundRect(ctx, barX, barY, barW, 6, 3);
-        ctx.fill();
-
-        const fillW = (p.score / 16) * barW;
-        const barGrad = ctx.createLinearGradient(barX, barY, barX + fillW, barY);
-        if (p.isWeak) {
-          barGrad.addColorStop(0, '#fb923c');
-          barGrad.addColorStop(1, '#f97316');
-        } else {
-          barGrad.addColorStop(0, '#a78bfa');
-          barGrad.addColorStop(1, '#f472b6');
-        }
-        ctx.fillStyle = barGrad;
-        roundRect(ctx, barX, barY, fillW, 6, 3);
-        ctx.fill();
-
-        // 약점 배지
-        if (p.isWeak) {
-          ctx.fillStyle = '#fb923c';
-          ctx.font = '700 14px sans-serif';
-          ctx.fillText('⚠ 가장 약한 영역', x + partW/2, y + 190);
-        }
+      const node = resultRef.current;
+      const canvas = await html2canvas(node, {
+        backgroundColor: '#0a0a0f',
+        scale: 2,
+        useCORS: true,
+        windowWidth: node.scrollWidth,
+        windowHeight: node.scrollHeight,
+        ignoreElements: (el) => el.getAttribute('data-html2canvas-ignore') === 'true',
       });
 
-      // === 한 줄 총평 ===
-      ctx.fillStyle = '#71717a';
-      ctx.font = '600 20px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('ONE-LINE VERDICT', W/2, 1810);
-
-      // 인용문
-      ctx.fillStyle = '#f4f4f5';
-      ctx.font = 'bold 32px sans-serif';
-      const verdict = `"Lv.${level.num} ${level.name}, ${type.name}"`;
-      ctx.fillText(verdict, W/2, 1860);
-
-      // === 푸터 ===
-      ctx.fillStyle = '#3f3f46';
-      ctx.font = '400 18px monospace';
       const date = new Date().toISOString().slice(0, 10);
-      ctx.fillText(`${date}  ·  ${type.code}  ·  Part ${weakestPart.num} weakness`, W/2, 1900);
-
-      // === 다운로드 ===
       canvas.toBlob((blob) => {
         if (!blob) {
           throw new Error('canvas.toBlob returned null');
@@ -420,7 +227,6 @@ export default function App() {
         document.body.removeChild(link);
         setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
       }, 'image/png');
-
     } catch (e) {
       console.error('PNG 저장 실패:', e);
       alert(
@@ -434,40 +240,6 @@ export default function App() {
       setDownloading(false);
     }
   };
-
-  // 헬퍼: 둥근 사각형
-  function roundRect(ctx, x, y, w, h, r) {
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.lineTo(x + w - r, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-    ctx.lineTo(x + w, y + h - r);
-    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    ctx.lineTo(x + r, y + h);
-    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-    ctx.lineTo(x, y + r);
-    ctx.quadraticCurveTo(x, y, x + r, y);
-    ctx.closePath();
-  }
-
-  // 헬퍼: 텍스트 자동 줄바꿈
-  function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-    const words = text.split('');
-    let line = '';
-    let currentY = y;
-    for (let i = 0; i < words.length; i++) {
-      const testLine = line + words[i];
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && line.length > 0) {
-        ctx.fillText(line, x, currentY);
-        line = words[i];
-        currentY += lineHeight;
-      } else {
-        line = testLine;
-      }
-    }
-    ctx.fillText(line, x, currentY);
-  }
 
   const totalScore = answers.reduce((s, a) => s + (a ? a : 0), 0);
   const part1Score = answers.slice(0, 4).reduce((s, a) => s + (a ? a : 0), 0);
@@ -707,8 +479,8 @@ export default function App() {
             {/* Download button - 캡처 영역 안에 두되, 캡처 시점에 숨김 */}
             <div className="flex items-center justify-between -mb-4" data-html2canvas-ignore="true">
               <div className="text-[10px] text-zinc-600 leading-snug">
-                공유용 1080×1920 카드로 저장해요<br />
-                <span className="mono text-zinc-700">전체 페이지는 OS 캡처를 써주세요</span>
+                결과 페이지 전체를 PNG로 저장해요<br />
+                <span className="mono text-zinc-700">저장에는 몇 초가 걸려요</span>
               </div>
               <button
                 onClick={handleDownload}
