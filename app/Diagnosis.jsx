@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useMemo, useRef } from 'react';
 import { ChevronRight, ChevronLeft, Sparkles, Target, TrendingUp, Zap, AlertCircle, CheckCircle2, RotateCcw, Brain, Wrench, Network, Download, Loader2 } from 'lucide-react';
 
