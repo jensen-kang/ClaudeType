@@ -180,6 +180,23 @@ function classifyType(answers) {
   return { code, ...names[code], axes: { ax1, ax2, ax3, ax4 } };
 }
 
+const USE_CASES = [
+  { id: 'writing', label: '글쓰기·콘텐츠', emoji: '✍️', hint: '이메일, 카피, 블로그' },
+  { id: 'coding', label: '코딩·개발', emoji: '💻', hint: '코드 작성, 디버깅, 리뷰' },
+  { id: 'analysis', label: '데이터 분석·리서치', emoji: '📊', hint: '자료 정리, 인사이트 뽑기' },
+  { id: 'learning', label: '학습·요약', emoji: '📚', hint: '논문, 영상, 책 요약' },
+  { id: 'translate', label: '번역·언어', emoji: '🌐', hint: '번역, 영작, 교정' },
+  { id: 'idea', label: '아이디어·브레인스토밍', emoji: '💡', hint: '컨셉, 네이밍, 발상' },
+  { id: 'planning', label: '기획·전략', emoji: '🎯', hint: '제안서, 로드맵, 의사결정' },
+  { id: 'todo', label: '일정·할 일 정리', emoji: '🗓', hint: '업무 정리, 우선순위' },
+  { id: 'design', label: '디자인·시각 자료', emoji: '🎨', hint: '슬라이드, 다이어그램, 이미지' },
+  { id: 'cs', label: '고객 응대·CS', emoji: '🤝', hint: '응대 초안, FAQ 정리' },
+  { id: 'sales', label: '영업·세일즈', emoji: '📈', hint: '제안서, 콜드메일, 협상 시뮬' },
+  { id: 'meeting', label: '회의·노트 정리', emoji: '🧾', hint: '회의록 요약, 액션 아이템' },
+  { id: 'research', label: '리서치·탐색', emoji: '🔎', hint: '시장, 경쟁사, 트렌드' },
+  { id: 'personal', label: '개인 비서', emoji: '🧠', hint: '여행, 쇼핑, 생활 결정' },
+];
+
 const AXIS_INFO = [
   { key: 'ax1', title: '접근 방식', left: 'P · Prompter', right: 'A · Architect', leftDesc: '지시형, 그때그때 말로', rightDesc: '설계형, 구조부터 짜기' },
   { key: 'ax2', title: '재사용 성향', left: 'F · Fresh', right: 'R · Reuse', leftDesc: '매번 새로 시작해요', rightDesc: '한 번 만들면 다시 써요' },
@@ -188,12 +205,25 @@ const AXIS_INFO = [
 ];
 
 export default function App() {
-  const [step, setStep] = useState('intro'); // intro, quiz, result
+  const [step, setStep] = useState('intro'); // intro, quiz, usecase, result
   const [answers, setAnswers] = useState(Array(12).fill(null));
   const [currentQ, setCurrentQ] = useState(0);
   const [reflection, setReflection] = useState({ surprise: '', weakest: '', want: '' });
   const [downloading, setDownloading] = useState(false);
+  const [selectedUseCases, setSelectedUseCases] = useState([]);
   const resultRef = useRef(null);
+
+  // 각 질문 옵션을 페이지 진입 시 한 번만 셔플 — 원래 점수(1~4)는 score 필드로 보존
+  const shuffledQuestions = useMemo(() => {
+    return QUESTIONS.map((q) => {
+      const indexed = q.options.map((text, i) => ({ text, score: i + 1 }));
+      for (let i = indexed.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indexed[i], indexed[j]] = [indexed[j], indexed[i]];
+      }
+      return { ...q, options: indexed };
+    });
+  }, []);
 
   // PNG 다운로드 — 결과 페이지 전체를 그대로 캡처
   const handleDownload = async () => {
@@ -265,18 +295,26 @@ export default function App() {
   }, [part1Score, part2Score, part3Score]);
 
   const handleAnswer = (idx) => {
+    const score = shuffledQuestions[currentQ].options[idx].score;
     const next = [...answers];
-    next[currentQ] = idx + 1;
+    next[currentQ] = score;
     setAnswers(next);
     setTimeout(() => {
       if (currentQ < 11) setCurrentQ(currentQ + 1);
-      else setStep('result');
+      else setStep('usecase');
     }, 250);
+  };
+
+  const toggleUseCase = (id) => {
+    setSelectedUseCases((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
   };
 
   const reset = () => {
     setStep('intro');
     setAnswers(Array(12).fill(null));
+    setSelectedUseCases([]);
     setCurrentQ(0);
     setReflection({ surprise: '', weakest: '', want: '' });
   };
@@ -385,7 +423,7 @@ export default function App() {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-xs tracking-widest text-zinc-500">
-                  PART {QUESTIONS[currentQ].part} · {currentQ + 1} / 12
+                  PART {shuffledQuestions[currentQ].part} · {currentQ + 1} / 12
                 </div>
                 <div className="text-xs text-zinc-500 mono">
                   {Math.round(((currentQ + 1) / 12) * 100)}%
@@ -408,14 +446,14 @@ export default function App() {
                 Q{(currentQ + 1).toString().padStart(2, '0')}
               </div>
               <h2 className="text-2xl md:text-3xl font-bold leading-tight mb-2">
-                {QUESTIONS[currentQ].q}
+                {shuffledQuestions[currentQ].q}
               </h2>
             </div>
 
             {/* Options */}
             <div className="space-y-3 mb-8">
-              {QUESTIONS[currentQ].options.map((opt, i) => {
-                const isSelected = answers[currentQ] === i + 1;
+              {shuffledQuestions[currentQ].options.map((opt, i) => {
+                const isSelected = answers[currentQ] === opt.score;
                 const letter = String.fromCharCode(65 + i);
                 return (
                   <button
@@ -434,7 +472,7 @@ export default function App() {
                         {letter}
                       </div>
                       <div className="text-zinc-200 leading-relaxed text-sm md:text-base pt-1">
-                        {opt}
+                        {opt.text}
                       </div>
                     </div>
                   </button>
@@ -452,7 +490,7 @@ export default function App() {
                 <ChevronLeft className="w-4 h-4" /> 이전으로
               </button>
               <div className="flex gap-1">
-                {QUESTIONS.map((_, i) => (
+                {shuffledQuestions.map((_, i) => (
                   <div
                     key={i}
                     className={`w-2 h-2 rounded-full ${
@@ -468,6 +506,66 @@ export default function App() {
               <div className="text-xs text-zinc-600">
                 답하면 다음으로 넘어가요
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* USE CASE */}
+        {step === 'usecase' && (
+          <div className="fadeIn">
+            <div className="mb-8">
+              <div className="text-xs tracking-[0.3em] text-zinc-500 mb-3">ONE MORE STEP</div>
+              <h2 className="text-3xl md:text-4xl font-black leading-tight mb-3">
+                Claude를 <span className="grad-text">어디에 쓰고 있어요?</span>
+              </h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                해당하는 영역을 모두 골라주세요. 결과 카드에 활용 분야로 함께 보여드려요.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-8">
+              {USE_CASES.map((u) => {
+                const on = selectedUseCases.includes(u.id);
+                return (
+                  <button
+                    key={u.id}
+                    onClick={() => toggleUseCase(u.id)}
+                    className={`px-4 py-3 rounded-xl border text-left transition-all ${
+                      on
+                        ? 'border-purple-500 bg-purple-500/10 text-zinc-100'
+                        : 'border-zinc-800 bg-zinc-900/50 text-zinc-300 hover:border-zinc-700'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{u.emoji}</span>
+                      <div>
+                        <div className="text-sm font-bold leading-tight">{u.label}</div>
+                        <div className={`text-[11px] mt-0.5 ${on ? 'text-purple-200/80' : 'text-zinc-500'}`}>{u.hint}</div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => { setStep('quiz'); setCurrentQ(11); }}
+                className="text-zinc-500 hover:text-zinc-300 text-sm flex items-center gap-1"
+              >
+                <ChevronLeft className="w-4 h-4" /> 이전으로
+              </button>
+              <div className="text-xs text-zinc-600">
+                {selectedUseCases.length}개 선택했어요
+              </div>
+              <button
+                onClick={() => setStep('result')}
+                disabled={selectedUseCases.length === 0}
+                className="px-5 py-2.5 rounded-xl text-zinc-100 font-bold text-sm transition-all hover:scale-[1.02] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
+                style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #db2777 100%)' }}
+              >
+                결과 보기 <ChevronRight className="inline w-4 h-4" />
+              </button>
             </div>
           </div>
         )}
@@ -569,6 +667,28 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            {/* Use Cases */}
+            {selectedUseCases.length > 0 && (
+              <div>
+                <div className="text-xs tracking-widest text-zinc-500 mb-4">MY USE CASES</div>
+                <div className="text-2xl font-bold text-zinc-100 mb-2">내가 Claude를 쓰는 영역</div>
+                <div className="text-sm text-zinc-500 mb-4">
+                  {selectedUseCases.length}개 영역에서 활용하고 있어요
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {USE_CASES.filter((u) => selectedUseCases.includes(u.id)).map((u) => (
+                    <div
+                      key={u.id}
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-500/30 bg-purple-500/5 text-sm"
+                    >
+                      <span>{u.emoji}</span>
+                      <span className="text-zinc-200 font-medium">{u.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Part Scores */}
             <div>
