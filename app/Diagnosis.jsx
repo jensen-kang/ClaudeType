@@ -5,132 +5,132 @@ import { ChevronRight, ChevronLeft, Sparkles, Target, TrendingUp, Zap, AlertCirc
 const QUESTIONS = [
   {
     part: 1,
-    q: "새로운 작업을 시킬 때, 어떻게 시작하나요?",
+    q: "새로운 작업을 시킬 때 어떻게 시작해요?",
     options: [
-      "그때그때 머릿속에 떠오르는 대로 입력한다",
-      "어떤 형식으로 받고 싶은지 미리 말한다",
-      "역할·맥락·원하는 형식을 구조화해서 전달한다",
-      "미리 만들어둔 프롬프트 템플릿이 있다",
+      "그때그때 떠오르는 대로 입력해요",
+      "어떤 형식으로 받고 싶은지 먼저 말해요",
+      "역할, 맥락, 원하는 형식을 구조로 짜서 전달해요",
+      "미리 만들어둔 프롬프트 템플릿을 써요",
     ],
   },
   {
     part: 1,
-    q: "같은 종류의 작업을 다시 할 때, 어떻게 하나요?",
+    q: "같은 작업을 다시 할 때 어떻게 해요?",
     options: [
-      "새 채팅창에서 처음부터 다시 설명한다",
-      "이전 채팅창을 찾아서 이어간다",
-      "이전 대화를 복사해서 새 채팅창에 넣고 시작한다",
-      "Projects나 저장된 프롬프트로 한 번에 호출한다",
+      "새 채팅창에서 처음부터 다시 설명해요",
+      "이전 채팅창을 찾아서 이어가요",
+      "이전 대화를 복사해 새 채팅창에 붙여 시작해요",
+      "Projects나 저장된 프롬프트로 한 번에 불러와요",
     ],
   },
   {
     part: 1,
-    q: "Claude의 결과물이 마음에 안 들 때, 어떻게 하나요?",
+    q: "Claude 결과물이 아쉬울 때 어떻게 해요?",
     options: [
-      "그냥 본인이 손으로 30~50%를 다시 고친다",
-      "\"더 잘 만들어줘\"라고 다시 시킨다",
-      "구체적으로 어디가 어떻게 부족한지 짚어서 다시 시킨다",
-      "다음번엔 같은 실수가 안 나오도록 지시문에 규칙을 추가한다",
+      "내가 직접 30~50%를 다시 고쳐요",
+      "\"더 잘 만들어줘\"라고 다시 시켜요",
+      "어디가 어떻게 부족한지 짚어서 다시 시켜요",
+      "다음번엔 같은 실수가 나오지 않게 지시문에 규칙을 더해요",
     ],
   },
   {
     part: 1,
-    q: "Claude에게 본인을 어떻게 소개하고 있나요?",
+    q: "Claude에게 나를 어떻게 소개하고 있어요?",
     options: [
-      "매번 새 채팅창에서 다시 설명한다",
-      "가끔 자기소개를 한다",
-      "User Preferences 또는 Custom Instructions에 한 번 등록해뒀다",
-      "직무·말투·금기사항까지 명시적으로 등록해뒀다",
+      "매번 새 채팅창에서 다시 설명해요",
+      "가끔 자기소개를 해요",
+      "User Preferences나 Custom Instructions에 한 번 등록해뒀어요",
+      "직무, 말투, 피해야 할 것까지 또렷하게 등록해뒀어요",
     ],
   },
   {
     part: 2,
-    q: "본인의 반복 업무 중, AI에 위임한 비율은?",
+    q: "내 반복 업무 중 AI에 얼마나 맡기고 있어요?",
     options: [
-      "거의 없음 — AI는 가끔 도움받는 정도",
-      "글쓰기·번역 같은 일부만 위임",
-      "자료 정리·분석·요약 등 여러 영역에서 위임",
-      "정해진 형식이 있는 작업은 거의 다 AI를 통해 처리",
+      "거의 없어요. AI는 가끔 도움받는 정도예요",
+      "글쓰기, 번역 같은 일부만 맡겨요",
+      "자료 정리, 분석, 요약처럼 여러 영역에서 맡겨요",
+      "형식이 정해진 작업은 거의 다 AI로 처리해요",
     ],
   },
   {
     part: 2,
-    q: "Claude에게 \"내 일의 방식\"을 가르친 적이 있나요?",
+    q: "Claude에게 \"내가 일하는 방식\"을 알려준 적 있어요?",
     options: [
-      "그게 가능한 줄 몰랐다",
-      "가끔 톤이나 형식을 알려주긴 한다",
-      "자주 쓰는 문서 형식·용어집 같은 걸 만들어 공유한다",
-      "작업별 가이드/체크리스트를 만들어두고 매번 호출한다",
+      "그게 가능한 줄 몰랐어요",
+      "가끔 톤이나 형식을 알려줘요",
+      "자주 쓰는 문서 형식이나 용어집을 만들어서 공유해요",
+      "작업별 가이드와 체크리스트를 만들어두고 매번 불러와요",
     ],
   },
   {
     part: 2,
-    q: "Claude가 만든 결과물의 \"끝났다\"는 기준은?",
+    q: "Claude가 만든 결과물이 \"끝났다\"고 보는 기준이 뭐예요?",
     options: [
-      "내가 보기에 그럴듯하면 끝",
-      "몇 번 다시 시키다가 적당한 시점에 끝",
-      "사전에 체크리스트가 있고 그걸로 확인한다",
-      "Claude에게 자가검증까지 시키고, 그 결과를 보고 판단",
+      "내가 보기에 그럴듯하면 끝이에요",
+      "몇 번 다시 시키다가 적당히 끝내요",
+      "미리 만들어둔 체크리스트로 확인해요",
+      "Claude에게 자가 검증까지 시키고 그 결과로 판단해요",
     ],
   },
   {
     part: 2,
-    q: "다른 사람이 본인 방식을 그대로 재현할 수 있나요?",
+    q: "다른 사람이 내 방식을 그대로 따라 할 수 있어요?",
     options: [
-      "아니요 — 나만의 감각으로 한다",
-      "말로 설명은 할 수 있지만 문서는 없다",
-      "일부는 문서화되어 있다",
-      "가이드/템플릿으로 정리되어 있어 누구나 같은 결과를 낼 수 있다",
+      "아니요, 나만의 감각으로 해요",
+      "말로 설명은 해줄 수 있지만 문서는 따로 없어요",
+      "일부는 문서로 정리해뒀어요",
+      "가이드와 템플릿이 있어서 누구나 같은 결과를 낼 수 있어요",
     ],
   },
   {
     part: 3,
-    q: "\"이 작업, AI한테 시킬 수 있겠다\"고 알아채는 능력은?",
+    q: "\"이 작업, AI한테 시킬 수 있겠다\"를 얼마나 잘 알아채요?",
     options: [
-      "누가 알려주면 그때 깨닫는 정도",
-      "글쓰기·번역 같은 명확한 영역만 알아챈다",
-      "평소에 \"이건 자동화할 수 있겠다\"고 자주 생각한다",
-      "새 작업을 받으면 거의 반사적으로 AI 분담 비율부터 본다",
+      "누가 알려주면 그때 알아채요",
+      "글쓰기, 번역처럼 또렷한 영역만 알아채요",
+      "평소에 \"이건 자동화할 수 있겠다\"를 자주 떠올려요",
+      "새 작업을 받으면 거의 반사적으로 AI 분담 비율부터 봐요",
     ],
   },
   {
     part: 3,
-    q: "본인의 일을 \"시스템\"으로 보는 시각이 있나요?",
+    q: "내 일을 \"시스템\"으로 보는 눈이 있어요?",
     options: [
-      "그냥 닥치는 대로 처리하는 편",
-      "자주 하는 작업은 머릿속에 순서가 있다",
-      "일부 작업은 문서/체크리스트로 만들어뒀다",
-      "본인 일을 \"반복 시스템 + 판단 영역\"으로 명확히 구분한다",
+      "그때그때 닥치는 대로 처리해요",
+      "자주 하는 작업은 머릿속에 순서가 잡혀 있어요",
+      "일부 작업은 문서나 체크리스트로 만들어뒀어요",
+      "내 일을 \"반복 시스템 + 판단 영역\"으로 또렷하게 나눠놨어요",
     ],
   },
   {
     part: 3,
-    q: "Claude에 한계를 느꼈을 때, 다음 행동은?",
+    q: "Claude에 한계를 느꼈을 때 어떻게 해요?",
     options: [
-      "포기하고 손으로 한다",
-      "다른 AI(ChatGPT 등)로 같은 걸 시켜본다",
-      "프롬프트나 입력 방식을 바꿔서 다시 시도",
-      "왜 안 됐는지 분석해서 다음번에 어떻게 줄지 설계 변경",
+      "포기하고 손으로 해요",
+      "다른 AI(ChatGPT 등)에 같은 걸 시켜봐요",
+      "프롬프트나 입력 방식을 바꿔서 다시 시도해요",
+      "왜 막혔는지 살펴보고, 다음번엔 어떻게 줄지 설계를 바꿔요",
     ],
   },
   {
     part: 3,
-    q: "1년 뒤 본인의 AI 활용 모습은?",
+    q: "1년 뒤에 AI를 어떻게 쓰고 있고 싶어요?",
     options: [
-      "아직 잘 모르겠다",
-      "지금보다 더 많이, 더 다양하게 쓰고 싶다",
-      "본인만의 작업 시스템을 만들고 싶다",
-      "동료들에게 본인 방식을 전파하는 사람이 되고 싶다",
+      "아직 잘 모르겠어요",
+      "지금보다 더 많이, 더 다양하게 쓰고 싶어요",
+      "나만의 작업 시스템을 만들고 싶어요",
+      "동료에게 내 방식을 전파하는 사람이 되고 싶어요",
     ],
   },
 ];
 
 const LEVELS = [
-  { min: 12, max: 18, name: "탐색가", num: 1, tag: "EXPLORER", color: "#94a3b8", desc: "Claude를 가끔 쓰는 단계. AI가 \"어디까지 되는지\" 아직 손에 안 잡혔어요." },
-  { min: 19, max: 26, name: "사용자", num: 2, tag: "USER", color: "#60a5fa", desc: "일상에 Claude를 끌어들였지만, 매번 처음부터 설명하느라 같은 말을 반복하고 있어요." },
-  { min: 27, max: 34, name: "활용가", num: 3, tag: "OPERATOR", color: "#a78bfa", desc: "Claude를 본인 일에 맞춰 쓸 줄 알아요. 다음 점프는 \"매번 시키지 않는\" 영역이에요." },
-  { min: 35, max: 42, name: "설계자", num: 4, tag: "ARCHITECT", color: "#f472b6", desc: "이미 본인 방식을 Claude에 외화하기 시작했어요. 시스템 사고가 자리잡는 중." },
-  { min: 43, max: 48, name: "운영자", num: 5, tag: "OPERATOR-X", color: "#fbbf24", desc: "Claude를 쓰는 사람이 아니라 Claude가 일하는 환경을 만드는 사람. 동료가 당신을 따라해요." },
+  { min: 12, max: 18, name: "탐색가", num: 1, tag: "EXPLORER", color: "#94a3b8", desc: "Claude를 가끔 쓰고 있어요. AI가 \"어디까지 되는지\"를 이제부터 손에 익히면 돼요." },
+  { min: 19, max: 26, name: "사용자", num: 2, tag: "USER", color: "#60a5fa", desc: "일상에 Claude를 들였어요. 매번 처음부터 설명하는 패턴만 줄여도 단숨에 점프해요." },
+  { min: 27, max: 34, name: "활용가", num: 3, tag: "OPERATOR", color: "#a78bfa", desc: "Claude를 내 일에 맞춰 쓰고 있어요. 다음 점프는 \"매번 다시 시키지 않는\" 영역이에요." },
+  { min: 35, max: 42, name: "설계자", num: 4, tag: "ARCHITECT", color: "#f472b6", desc: "내 방식을 Claude에 옮기기 시작했어요. 시스템처럼 보는 시각이 자리잡는 중이에요." },
+  { min: 43, max: 48, name: "운영자", num: 5, tag: "OPERATOR-X", color: "#fbbf24", desc: "Claude를 쓰는 사람이 아니라, Claude가 일하는 환경을 만드는 사람이에요. 동료가 당신 방식을 따라해요." },
 ];
 
 // 4축 유형 분류
@@ -159,32 +159,32 @@ function classifyType(answers) {
 
   // 16가지 유형 (대표 별명)
   const names = {
-    PFSI: { name: "감각의 즉흥파", emoji: "🎲", desc: "그때그때 머리에 떠오르는 대로 Claude한테 던지고, 결과는 감으로 판단해요. 빠르긴 한데 매번 다시 시작하는 게 함정." },
-    PFSC: { name: "체크리스트 즉흥파", emoji: "📋", desc: "즉흥적으로 시키지만 결과는 꼼꼼히 본다. 시스템이 없을 뿐이지 기준은 있어요." },
-    PFDI: { name: "위임 본능러", emoji: "🚀", desc: "일단 많이 시키긴 하는데, 매번 새로 설명하고 감으로 받아내는 타입. 효율의 누수가 큰 영역." },
-    PFDC: { name: "기준 있는 임시 운영자", emoji: "🎯", desc: "위임도 잘하고 검증 기준도 있는데, 매번 처음부터 다시 설정한다. 시스템화 1단계가 시급." },
-    PRSI: { name: "절약형 재활용러", emoji: "♻️", desc: "이전 대화를 잘 챙겨두는 알뜰파. 검증은 직관으로. 효율은 좋은데 일관성이 약해요." },
-    PRSC: { name: "꼼꼼한 재활용러", emoji: "📦", desc: "재사용도 하고 검증도 하지만, 위임은 표면적. AI를 \"보조\"로만 쓰는 단계." },
-    PRDI: { name: "감각의 운영자", emoji: "🎨", desc: "많이 위임하고 자료도 모아두지만, 결과 판단은 감으로. 기준만 명시하면 단숨에 점프할 사람." },
-    PRDC: { name: "안정형 활용가", emoji: "⚙️", desc: "위임·재사용·검증 다 챙기지만, 아직 \"내가 시키는\" 단계. 다음은 환경을 설계하는 단계예요." },
-    AFSI: { name: "구조 짜는 즉흥가", emoji: "🧩", desc: "프롬프트는 잘 짜는데 매번 새로 짠다. 결과는 감으로 본다. \"한 번 잘 짠 걸 또 짠다\"는 함정." },
-    AFSC: { name: "원샷 완벽주의자", emoji: "🎼", desc: "한 번 짤 때 완벽하게 짜는데, 다음에 또 처음부터. 외화만 시작하면 폭발적으로 성장할 타입." },
-    AFDI: { name: "직관의 아키텍트", emoji: "🌪️", desc: "설계 능력은 있는데 매번 새로 설계. 위임 깊이도 있지만 검증은 감. 가장 성장 잠재력이 큰 자리." },
-    AFDC: { name: "검증 광인", emoji: "🔬", desc: "설계도 잘하고 검증도 철저한데, 재사용 시스템이 없어 매번 새로 만든다. 가장 아까운 타입." },
-    ARSI: { name: "스마트 재활용가", emoji: "🎯", desc: "구조·재사용까지는 잘하는데 위임 깊이와 검증이 약해요. 한 발만 더 들어가면 설계자." },
-    ARSC: { name: "체계의 사용자", emoji: "🗂️", desc: "체계는 잡혔는데 위임 범위가 좁아요. \"이것까지 시켜도 되나?\" 싶은 영역에 도전할 때." },
-    ARDI: { name: "느낌의 설계자", emoji: "✨", desc: "거의 다 갖췄는데 \"끝의 기준\"이 머릿속에만 있어요. 검증 기준을 외화하면 곧 운영자." },
-    ARDC: { name: "환경 설계자", emoji: "🏛️", desc: "Claude를 쓰는 사람이 아니라 환경을 만드는 사람. 동료가 당신 방식을 배우는 단계." },
+    PFSI: { name: "감각의 즉흥파", emoji: "🎲", desc: "떠오르는 대로 Claude에 던지고, 결과는 감으로 판단해요. 빠른 게 강점, 매번 다시 시작하는 게 함정이에요." },
+    PFSC: { name: "체크리스트 즉흥파", emoji: "📋", desc: "즉흥으로 시켜도 결과는 꼼꼼하게 봐요. 시스템만 갖추면 단숨에 점프해요." },
+    PFDI: { name: "위임 본능러", emoji: "🚀", desc: "일단 많이 맡겨요. 매번 새로 설명하고 감으로 받아내는 타입이라, 효율을 끌어올릴 여지가 가장 커요." },
+    PFDC: { name: "기준 있는 임시 운영자", emoji: "🎯", desc: "맡기기도 잘하고 검증 기준도 있어요. 매번 처음부터 설정하는 패턴만 줄이면 시스템화 1단계예요." },
+    PRSI: { name: "절약형 재활용러", emoji: "♻️", desc: "이전 대화를 잘 챙기는 알뜰파예요. 검증을 감에 맡기는 부분만 보완하면 일관성이 살아나요." },
+    PRSC: { name: "꼼꼼한 재활용러", emoji: "📦", desc: "재사용도 검증도 하지만, 맡기는 깊이가 얕아요. AI를 \"보조\"에서 \"동료\"로 끌어올릴 단계예요." },
+    PRDI: { name: "감각의 운영자", emoji: "🎨", desc: "많이 맡기고 자료도 잘 모으는데, 결과 판단은 감에 의지해요. 기준만 또렷이 적어두면 단숨에 점프해요." },
+    PRDC: { name: "안정형 활용가", emoji: "⚙️", desc: "위임, 재사용, 검증을 다 챙겨요. 다음은 \"내가 시키는\"을 넘어 환경을 설계하는 단계예요." },
+    AFSI: { name: "구조 짜는 즉흥가", emoji: "🧩", desc: "프롬프트를 잘 짜는데 매번 새로 짜요. 결과도 감으로 봐요. 한 번 짠 걸 다시 쓰기 시작하면 폭발적으로 성장해요." },
+    AFSC: { name: "원샷 완벽주의자", emoji: "🎼", desc: "한 번 짤 때 완벽하게 짜는데, 다음에 또 처음부터 짜요. 한 번만 외부로 옮겨두면 성장이 가팔라요." },
+    AFDI: { name: "직관의 아키텍트", emoji: "🌪️", desc: "설계도 잘하고 깊이 맡기는데, 매번 새로 설계해요. 검증 기준만 더하면 가장 크게 점프할 자리예요." },
+    AFDC: { name: "검증 광인", emoji: "🔬", desc: "설계도 검증도 철저한데, 재사용 시스템이 없어 매번 새로 만들어요. 가장 아까운 타입이에요." },
+    ARSI: { name: "스마트 재활용가", emoji: "🎯", desc: "구조와 재사용은 잘 챙겨요. 위임 깊이와 검증만 더하면 설계자 단계예요." },
+    ARSC: { name: "체계의 사용자", emoji: "🗂️", desc: "체계는 잡혔는데 맡기는 범위가 좁아요. \"이것까지 시켜도 되나?\" 싶은 영역에 도전할 때예요." },
+    ARDI: { name: "느낌의 설계자", emoji: "✨", desc: "거의 다 갖췄는데 \"끝의 기준\"이 머릿속에만 있어요. 검증 기준만 밖으로 꺼내면 곧 운영자예요." },
+    ARDC: { name: "환경 설계자", emoji: "🏛️", desc: "Claude를 쓰는 사람이 아니라 환경을 만드는 사람이에요. 동료가 당신 방식을 배워가는 단계예요." },
   };
 
   return { code, ...names[code], axes: { ax1, ax2, ax3, ax4 } };
 }
 
 const AXIS_INFO = [
-  { key: 'ax1', title: '접근 방식', left: 'P · Prompter', right: 'A · Architect', leftDesc: '지시형 — 그때그때 말로', rightDesc: '설계형 — 구조 먼저' },
-  { key: 'ax2', title: '재사용 성향', left: 'F · Fresh', right: 'R · Reuse', leftDesc: '매번 새로 시작', rightDesc: '한 번 만들면 재활용' },
-  { key: 'ax3', title: '위임 깊이', left: 'S · Surface', right: 'D · Deep', leftDesc: '표면적 — 일부만', rightDesc: '깊이 — 전반적으로' },
-  { key: 'ax4', title: '검증 방식', left: 'I · Intuition', right: 'C · Criteria', leftDesc: '직관 — 감으로 판단', rightDesc: '기준 — 체크리스트로' },
+  { key: 'ax1', title: '접근 방식', left: 'P · Prompter', right: 'A · Architect', leftDesc: '지시형, 그때그때 말로', rightDesc: '설계형, 구조부터 짜기' },
+  { key: 'ax2', title: '재사용 성향', left: 'F · Fresh', right: 'R · Reuse', leftDesc: '매번 새로 시작해요', rightDesc: '한 번 만들면 다시 써요' },
+  { key: 'ax3', title: '맡기는 깊이', left: 'S · Surface', right: 'D · Deep', leftDesc: '얕게, 일부만 맡겨요', rightDesc: '깊이, 전반을 맡겨요' },
+  { key: 'ax4', title: '검증 방식', left: 'I · Intuition', right: 'C · Criteria', leftDesc: '감으로 판단해요', rightDesc: '체크리스트로 확인해요' },
 ];
 
 export default function App() {
@@ -314,7 +314,7 @@ export default function App() {
       // === Part 점수 3개 ===
       const parts = [
         { name: '기본 활용', score: part1Score, isWeak: weakestPart.num === 1 },
-        { name: '위임 깊이', score: part2Score, isWeak: weakestPart.num === 2 },
+        { name: '맡기는 깊이', score: part2Score, isWeak: weakestPart.num === 2 },
         { name: '시스템 사고', score: part3Score, isWeak: weakestPart.num === 3 },
       ];
 
@@ -384,7 +384,7 @@ export default function App() {
         if (p.isWeak) {
           ctx.fillStyle = '#fb923c';
           ctx.font = '700 14px sans-serif';
-          ctx.fillText('⚠ 약점 영역', x + partW/2, y + 190);
+          ctx.fillText('⚠ 가장 약한 영역', x + partW/2, y + 190);
         }
       });
 
@@ -424,11 +424,11 @@ export default function App() {
     } catch (e) {
       console.error('PNG 저장 실패:', e);
       alert(
-        'PNG 자동 저장에 실패했어요.\n\n' +
-        '대신 OS 캡처를 사용해주세요:\n' +
-        '• Mac: Cmd+Shift+4 → 스페이스바 → 창 클릭\n' +
-        '• Windows: Win+Shift+S\n' +
-        '• Chrome 전체: F12 → Cmd/Ctrl+Shift+P → "screenshot"'
+        'PNG로 저장하지 못했어요.\n\n' +
+        '대신 OS 캡처를 써주세요.\n' +
+        '• Mac: Cmd + Shift + 4, 스페이스바, 창 클릭\n' +
+        '• Windows: Win + Shift + S\n' +
+        '• Chrome 전체: F12, Cmd/Ctrl + Shift + P, "screenshot" 입력'
       );
     } finally {
       setDownloading(false);
@@ -486,7 +486,7 @@ export default function App() {
   const weakestPart = useMemo(() => {
     const parts = [
       { num: 1, name: '기본 활용', score: part1Score, icon: Brain },
-      { num: 2, name: '일에 활용하는 깊이', score: part2Score, icon: Wrench },
+      { num: 2, name: '맡기는 깊이', score: part2Score, icon: Wrench },
       { num: 3, name: '시스템 사고', score: part3Score, icon: Network },
     ];
     return parts.sort((a, b) => a.score - b.score)[0];
@@ -557,13 +557,13 @@ export default function App() {
           <div className="fadeIn">
             <div className="text-xs tracking-[0.3em] text-zinc-500 mb-6">CLAUDE LITERACY · SELF DIAGNOSIS</div>
             <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
-              너,<br />
+              나는<br />
               <span className="grad-text">Claude에게 일을 시키는</span><br />
-              사람이야?
+              사람일까요?
             </h1>
             <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
-              12개 문항, 5분.<br />
-              <span className="text-zinc-500">"Claude를 잘 쓰는가"가 아니라 "Claude에게 일을 잘 시키는가"를 봐요.</span>
+              12문항, 5분이에요.<br />
+              <span className="text-zinc-500">"Claude를 잘 쓰는지"가 아니라 "Claude에게 일을 잘 시키는지"를 봐요.</span>
             </p>
 
             <div className="grad-border mb-8">
@@ -571,11 +571,11 @@ export default function App() {
                 <div className="text-xs tracking-widest text-zinc-500 mb-3">WHAT YOU'LL GET</div>
                 <div className="space-y-3">
                   {[
-                    { icon: Sparkles, t: 'AI 활용 레벨 (1~5)', d: '탐색가 → 운영자 중 어디?' },
-                    { icon: Brain, t: '4축 유형 코드 + 별명', d: 'AFDC · 검증 광인 같은 16가지 중 1' },
-                    { icon: Target, t: '약점 영역 진단', d: '기본기·위임 깊이·시스템 사고 중 약점' },
-                    { icon: TrendingUp, t: '추천 학습 순서', d: '뭐부터 손대야 할지' },
-                    { icon: Zap, t: '반복 작업 후보 리스트', d: '레슨 당일 Skill 만들 재료' },
+                    { icon: Sparkles, t: 'AI 활용 레벨 (1~5)', d: '탐색가부터 운영자까지, 내 위치를 알려줘요' },
+                    { icon: Brain, t: '4축 유형 코드와 별명', d: 'AFDC, 검증 광인처럼 16가지 중 하나' },
+                    { icon: Target, t: '약점 영역 진단', d: '기본 활용, 맡기는 깊이, 시스템 사고 중 가장 약한 곳' },
+                    { icon: TrendingUp, t: '추천 학습 순서', d: '먼저 손댈 것부터 알려줘요' },
+                    { icon: Zap, t: '반복 작업 후보 리스트', d: '레슨 당일에 Skill로 만들 재료가 돼요' },
                   ].map((it, i) => {
                     const Icon = it.icon;
                     return (
@@ -597,11 +597,11 @@ export default function App() {
               className="w-full py-4 rounded-xl text-zinc-100 font-bold text-lg transition-all hover:scale-[1.01]"
               style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #db2777 100%)' }}
             >
-              진단 시작 <ChevronRight className="inline w-5 h-5" />
+              진단 시작하기 <ChevronRight className="inline w-5 h-5" />
             </button>
 
             <div className="text-center text-xs text-zinc-600 mt-6">
-              점수가 낮아도 부끄러워할 필요 없어요. 낮을수록 배울 게 많다는 뜻.
+              점수가 낮아도 괜찮아요. 낮을수록 배울 게 많다는 뜻이에요.
             </div>
           </div>
         )}
@@ -677,7 +677,7 @@ export default function App() {
                 disabled={currentQ === 0}
                 className="text-zinc-500 hover:text-zinc-300 disabled:opacity-30 disabled:cursor-not-allowed text-sm flex items-center gap-1"
               >
-                <ChevronLeft className="w-4 h-4" /> 이전
+                <ChevronLeft className="w-4 h-4" /> 이전으로
               </button>
               <div className="flex gap-1">
                 {QUESTIONS.map((_, i) => (
@@ -694,7 +694,7 @@ export default function App() {
                 ))}
               </div>
               <div className="text-xs text-zinc-600">
-                답하면 자동 진행
+                답하면 다음으로 넘어가요
               </div>
             </div>
           </div>
@@ -707,8 +707,8 @@ export default function App() {
             {/* Download button - 캡처 영역 안에 두되, 캡처 시점에 숨김 */}
             <div className="flex items-center justify-between -mb-4" data-html2canvas-ignore="true">
               <div className="text-[10px] text-zinc-600 leading-snug">
-                공유용 1080×1920 카드로 저장돼요<br />
-                <span className="mono text-zinc-700">전체 페이지는 OS 캡처 사용</span>
+                공유용 1080×1920 카드로 저장해요<br />
+                <span className="mono text-zinc-700">전체 페이지는 OS 캡처를 써주세요</span>
               </div>
               <button
                 onClick={handleDownload}
@@ -718,12 +718,12 @@ export default function App() {
                 {downloading ? (
                   <>
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    카드 생성 중...
+                    카드를 만들고 있어요
                   </>
                 ) : (
                   <>
                     <Download className="w-3.5 h-3.5" />
-                    공유 카드 저장
+                    공유 카드 저장하기
                   </>
                 )}
               </button>
@@ -803,9 +803,9 @@ export default function App() {
               <div className="text-xs tracking-widest text-zinc-500 mb-4">SCORE BREAKDOWN</div>
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { num: 1, name: '기본 활용', score: part1Score, icon: Brain, hint: '프롬프트 · 맥락 · 재사용' },
-                  { num: 2, name: '위임 깊이', score: part2Score, icon: Wrench, hint: '위임 · 외화 · 재현성' },
-                  { num: 3, name: '시스템 사고', score: part3Score, icon: Network, hint: '시각 · 회복력 · 방향' },
+                  { num: 1, name: '기본 활용', score: part1Score, icon: Brain, hint: '프롬프트, 맥락, 재사용' },
+                  { num: 2, name: '맡기는 깊이', score: part2Score, icon: Wrench, hint: '위임, 외부 기록, 재현성' },
+                  { num: 3, name: '시스템 사고', score: part3Score, icon: Network, hint: '바라보는 시각, 회복력, 방향' },
                 ].map((p) => {
                   const Icon = p.icon;
                   const pct = (p.score / 16) * 100;
@@ -835,7 +835,7 @@ export default function App() {
                         />
                       </div>
                       {isWeak && (
-                        <div className="text-[10px] text-orange-400 mt-2 font-bold">⚠ 약점 영역</div>
+                        <div className="text-[10px] text-orange-400 mt-2 font-bold">⚠ 가장 약한 영역</div>
                       )}
                     </div>
                   );
@@ -850,29 +850,29 @@ export default function App() {
                 <div className="text-xs tracking-widest text-orange-400">WEAK POINT</div>
               </div>
               <div className="text-xl font-bold text-zinc-100 mb-3">
-                Part {weakestPart.num}. {weakestPart.name}이(가) 가장 약해요
+                Part {weakestPart.num}. {weakestPart.name} 영역이 가장 약해요
               </div>
               <div className="text-sm text-zinc-300 leading-relaxed mb-4">
-                {weakestPart.num === 1 && "프롬프트는 잘 쓰는데, 본인만의 표준이 없어요. 매번 즉흥적으로 시작하니까 결과의 일관성이 떨어집니다."}
-                {weakestPart.num === 2 && "AI를 잘 쓰지만 \"매번 처음부터\" 시작해요. 위임 깊이는 있는데 그게 누적되지 않는 게 가장 큰 손실."}
-                {weakestPart.num === 3 && "도구는 잘 다루는데 본인 일을 \"시스템\"으로 보는 시각이 아직 없어요. 다음 점프가 가장 큰 단계."}
+                {weakestPart.num === 1 && "프롬프트는 잘 쓰는데, 나만의 표준이 아직 없어요. 매번 즉흥으로 시작하면 결과가 들쭉날쭉해져요. 표준 하나만 정해도 단숨에 점프해요."}
+                {weakestPart.num === 2 && "AI를 잘 쓰지만, 매번 처음부터 다시 시작하고 있어요. 맡기는 깊이는 있는데 그게 쌓이지 않는 게 가장 아까운 부분이에요."}
+                {weakestPart.num === 3 && "도구는 잘 다루는데, 내 일을 \"시스템\"으로 보는 시각이 아직 자리잡지 못했어요. 다음 점프가 가장 크게 일어날 단계예요."}
               </div>
               <div className="text-xs text-orange-300/80 mono">
-                점수 {weakestPart.score}/16 — 다른 영역보다 {Math.max(part1Score, part2Score, part3Score) - weakestPart.score}점 낮음
+                점수 {weakestPart.score}/16 · 다른 영역보다 {Math.max(part1Score, part2Score, part3Score) - weakestPart.score}점 낮아요
               </div>
             </div>
 
             {/* Learning Roadmap */}
             <div>
               <div className="text-xs tracking-widest text-zinc-500 mb-4">LEARNING ROADMAP</div>
-              <div className="text-2xl font-bold text-zinc-100 mb-2">먼저 뭘 손대야 할까?</div>
-              <div className="text-sm text-zinc-500 mb-6">약점 영역 기반 추천 순서예요</div>
+              <div className="text-2xl font-bold text-zinc-100 mb-2">먼저 뭘 손대면 좋을까요?</div>
+              <div className="text-sm text-zinc-500 mb-6">가장 약한 영역에 맞춰 추천하는 순서예요</div>
 
               <div className="space-y-3">
                 {weakestPart.num === 1 && [
-                  { n: '01', t: 'User Preferences 세팅', d: '직무·말투·금기사항을 한 번에 등록. 매번 자기소개 안 해도 됨.' },
-                  { n: '02', t: 'Projects로 맥락 묶기', d: '같은 프로젝트의 대화는 한 공간에. 컨텍스트가 누적됨.' },
-                  { n: '03', t: '"규칙으로 추가하기" 습관', d: '결과물 불만족 → 손으로 고치지 말고 규칙으로 외화.' },
+                  { n: '01', t: 'User Preferences 세팅하기', d: '직무, 말투, 피해야 할 것을 한 번에 등록해두면 매번 자기소개를 하지 않아도 돼요.' },
+                  { n: '02', t: 'Projects로 맥락 묶기', d: '같은 프로젝트의 대화를 한 공간에 모으면 맥락이 그대로 쌓여요.' },
+                  { n: '03', t: '"규칙으로 추가하기" 습관 만들기', d: '결과가 아쉬울 때 직접 고치지 말고, 규칙으로 옮겨 적어두세요.' },
                 ].map((r, i) => (
                   <div key={i} className="border border-zinc-800 rounded-xl p-4 bg-zinc-900/50">
                     <div className="flex items-start gap-4">
@@ -885,9 +885,9 @@ export default function App() {
                   </div>
                 ))}
                 {weakestPart.num === 2 && [
-                  { n: '01', t: '반복 업무 후보 추출', d: '주 3회 이상 반복하는 작업 3개 적기 (아래 섹션 활용).' },
-                  { n: '02', t: '그중 1개를 \"내 일의 레시피\"로', d: 'SKILL.md 또는 Project Instruction으로 외화.' },
-                  { n: '03', t: '검증 기준 명시', d: '"잘 되게"가 아니라 "체크리스트 4개 통과"로.' },
+                  { n: '01', t: '반복 업무 후보 골라보기', d: '주 3회 이상 반복하는 작업 3개를 아래 섹션에 적어보세요.' },
+                  { n: '02', t: '그중 1개를 "내 일의 레시피"로', d: 'SKILL.md나 Project Instruction에 그대로 옮겨 적어요.' },
+                  { n: '03', t: '검증 기준 또렷이 적기', d: '"잘 되게"가 아니라 "체크리스트 4개 통과"처럼 또렷한 문장으로 적어요.' },
                 ].map((r, i) => (
                   <div key={i} className="border border-zinc-800 rounded-xl p-4 bg-zinc-900/50">
                     <div className="flex items-start gap-4">
@@ -900,9 +900,9 @@ export default function App() {
                   </div>
                 ))}
                 {weakestPart.num === 3 && [
-                  { n: '01', t: '1주일 업무를 분류', d: '반복 영역 vs 판단 영역. 두 영역을 표로 적어보기.' },
-                  { n: '02', t: '반복 영역만 추리기', d: '그중 \"AI 분담 가능\" 영역에 표시.' },
-                  { n: '03', t: '1개 골라 Skill로', d: '가장 자주·가장 형식 명확한 것 하나 → 외화 시작.' },
+                  { n: '01', t: '1주일 업무를 나눠보기', d: '반복 영역과 판단 영역, 두 영역을 표로 적어봐요.' },
+                  { n: '02', t: '반복 영역만 추리기', d: '그중에서 "AI에 맡길 수 있어요"에 표시해봐요.' },
+                  { n: '03', t: '1개 골라 Skill로', d: '가장 자주 하고, 형식이 또렷한 작업 하나를 골라 옮겨 적기부터 시작해봐요.' },
                 ].map((r, i) => (
                   <div key={i} className="border border-zinc-800 rounded-xl p-4 bg-zinc-900/50">
                     <div className="flex items-start gap-4">
@@ -921,7 +921,7 @@ export default function App() {
             <div>
               <div className="text-xs tracking-widest text-zinc-500 mb-4">REPEAT TASK CANDIDATES</div>
               <div className="text-2xl font-bold text-zinc-100 mb-2">내 반복 작업 후보</div>
-              <div className="text-sm text-zinc-500 mb-6">레슨 당일 이 중 하나를 Skill로 만들 거예요</div>
+              <div className="text-sm text-zinc-500 mb-6">레슨 당일에 이 중 하나를 Skill로 만들어요</div>
 
               <div className="border border-zinc-800 rounded-xl bg-zinc-900/50 overflow-hidden">
                 <div className="grid grid-cols-12 gap-2 px-4 py-3 border-b border-zinc-800 text-[10px] tracking-widest text-zinc-500 mono">
@@ -933,20 +933,20 @@ export default function App() {
                 {[1, 2, 3, 4, 5].map((n) => (
                   <div key={n} className="grid grid-cols-12 gap-2 px-4 py-3 border-b border-zinc-800/50 last:border-0 text-sm">
                     <div className="col-span-1 text-zinc-600 mono">{n}</div>
-                    <div className="col-span-6 text-zinc-700 italic text-xs">예: 주간 보고서 작성 / 회의록 요약 / 외부 이메일 초안 …</div>
-                    <div className="col-span-2 text-zinc-700 text-xs">__/주</div>
-                    <div className="col-span-3 text-zinc-700 text-xs">High / Med / Low</div>
+                    <div className="col-span-6 text-zinc-700 italic text-xs">예: 주간 보고서 쓰기, 회의록 요약하기, 외부 메일 초안 쓰기…</div>
+                    <div className="col-span-2 text-zinc-700 text-xs">__회/주</div>
+                    <div className="col-span-3 text-zinc-700 text-xs">높음 / 중간 / 낮음</div>
                   </div>
                 ))}
               </div>
 
               <div className="mt-4 p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl">
-                <div className="text-xs tracking-widest text-purple-300 mb-2 font-bold">💡 후보 발견 질문</div>
+                <div className="text-xs tracking-widest text-purple-300 mb-2 font-bold">💡 후보를 찾는 질문</div>
                 <ul className="space-y-1.5 text-xs text-zinc-400">
-                  <li>· 이번 주에 같은 형식의 문서를 몇 번 썼나요?</li>
-                  <li>· 동료가 "그거 어떻게 하는 거예요?"라고 물어본 적이 있나요?</li>
-                  <li>· "매번 톤을 다시 잡는다"고 느낀 작업이 있나요?</li>
-                  <li>· 끝나고 "또 해야 되네…" 한숨 쉰 작업이 있나요?</li>
+                  <li>· 이번 주에 같은 형식의 문서를 몇 번 썼어요?</li>
+                  <li>· 동료가 "그거 어떻게 해요?"라고 물어본 적 있어요?</li>
+                  <li>· "매번 톤을 다시 잡고 있어요"라고 느낀 작업이 있어요?</li>
+                  <li>· 끝나고 "또 해야 하네..." 하고 한숨 쉰 작업이 있어요?</li>
                 </ul>
               </div>
             </div>
@@ -957,9 +957,9 @@ export default function App() {
               <div className="text-2xl font-bold text-zinc-100 mb-6">진단 후 한 줄 메모</div>
               <div className="space-y-4">
                 {[
-                  { key: 'surprise', q: '가장 의외였던 답은?', placeholder: '예: Q6에서 D를 못 골랐다는 게 충격…' },
-                  { key: 'weakest', q: '약점 영역에 대한 본인 생각은?', placeholder: `Part ${weakestPart.num} (${weakestPart.name})에 대해…` },
-                  { key: 'want', q: '레슨에서 가장 알고 싶은 것 하나?', placeholder: '딱 하나만 적어보세요' },
+                  { key: 'surprise', q: '가장 의외였던 답이 뭐예요?', placeholder: '예: Q6에서 D를 못 골랐다는 게 의외였어요...' },
+                  { key: 'weakest', q: '가장 약한 영역, 어떻게 생각해요?', placeholder: `Part ${weakestPart.num} (${weakestPart.name})에 대해 어떻게 느꼈는지 적어보세요` },
+                  { key: 'want', q: '레슨에서 가장 알고 싶은 것 하나는?', placeholder: '딱 하나만 적어보세요' },
                 ].map((f) => (
                   <div key={f.key}>
                     <label className="block text-xs text-zinc-500 mb-2">{f.q}</label>
@@ -979,7 +979,7 @@ export default function App() {
             <div className="text-center py-8 border-t border-zinc-800">
               <div className="text-xs tracking-widest text-zinc-500 mb-4">ONE-LINE VERDICT</div>
               <div className="text-2xl md:text-3xl font-bold text-zinc-100 leading-relaxed mb-3">
-                "{level.num}단계 {level.name}, <span className="grad-text">{type.name}</span>."
+                "{level.num}단계 {level.name}, <span className="grad-text">{type.name}</span>예요."
               </div>
               <div className="text-xs text-zinc-500 mono">
                 {totalScore}/48 · {type.code} · Part {weakestPart.num} weakness
@@ -989,14 +989,14 @@ export default function App() {
             {/* Lesson day kit */}
             <div className="grad-border">
               <div className="p-6">
-                <div className="text-xs tracking-widest text-zinc-500 mb-4">📌 레슨 당일 가져올 것</div>
+                <div className="text-xs tracking-widest text-zinc-500 mb-4">📌 레슨 당일에 가져올 것</div>
                 <div className="space-y-2">
                   {[
-                    `진단 결과: 총점 ${totalScore}, 레벨 ${level.num} (${level.name}), 유형 ${type.code}`,
-                    `약점 영역: Part ${weakestPart.num} (${weakestPart.name})`,
-                    '반복 작업 후보 리스트 (최소 3개 — 위에 적은 것)',
+                    `진단 결과: 총점 ${totalScore}점, 레벨 ${level.num}(${level.name}), 유형 ${type.code}`,
+                    `가장 약한 영역: Part ${weakestPart.num} (${weakestPart.name})`,
+                    '반복 작업 후보 리스트 (위에 적은 것, 3개 이상)',
                     '가장 알고 싶은 질문 1개',
-                    '노트북 (Claude 직접 사용)',
+                    '노트북 (Claude를 직접 써볼 거예요)',
                   ].map((it, i) => (
                     <div key={i} className="flex items-start gap-2 text-sm text-zinc-300">
                       <CheckCircle2 className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
@@ -1013,7 +1013,7 @@ export default function App() {
                 onClick={reset}
                 className="text-xs text-zinc-500 hover:text-zinc-300 inline-flex items-center gap-2"
               >
-                <RotateCcw className="w-3 h-3" /> 다시 진단하기
+                <RotateCcw className="w-3 h-3" /> 다시 해보기
               </button>
             </div>
 
